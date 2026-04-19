@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"os/signal"
 
 	"github.com/go-telegram/bot"
@@ -61,8 +62,8 @@ func handler(ctx context.Context, b *bot.Bot, update *models.Update) {
 			Text:   "Text saved " + text,
 		})
 		fileUUID := uuid.New()
-		err := os.MkdirAll("../storage/unsorted", 0755)
-		path := fmt.Sprintf("../storage/unsorted/%s.md", &fileUUID)
+		err := os.MkdirAll("../unsorted", 0755)
+		path := fmt.Sprintf("../unsorted/%s.md", &fileUUID)
 		file, err := os.Create(path)
 		if err != nil {
 			fmt.Println("unable to create file", err)
@@ -71,6 +72,9 @@ func handler(ctx context.Context, b *bot.Bot, update *models.Update) {
 		defer file.Close()
 		file.WriteString(text)
 		fmt.Println("writen")
+
+		cmd := exec.Command("bash", "-lc", `cd ../unsorted && git add . && git commit -m "feat: add note" && git push`)
+		cmd.Run()
 	}
 }
 
