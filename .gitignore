@@ -2,3 +2,6 @@
 .env
 .env.prod
 .env.develop
+
+# ai
+.codex
