@@ -9,6 +9,7 @@ import (
 
 	"github.com/go-telegram/bot"
 	"github.com/go-telegram/bot/models"
+	"github.com/google/uuid"
 	"github.com/joho/godotenv"
 )
 
@@ -59,7 +60,9 @@ func handler(ctx context.Context, b *bot.Bot, update *models.Update) {
 			ChatID: chatID,
 			Text:   "Text saved" + text,
 		})
-		file, err := os.Create("storage/text.md")
+		fileUUID := uuid.New()
+		path := fmt.Sprintf("storage/%s.md", &fileUUID)
+		file, err := os.Create(path)
 		if err != nil {
 			fmt.Println("unable to create file", err)
 			os.Exit(1)
