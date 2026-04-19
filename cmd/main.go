@@ -61,8 +61,8 @@ func handler(ctx context.Context, b *bot.Bot, update *models.Update) {
 			Text:   "Text saved " + text,
 		})
 		fileUUID := uuid.New()
-		err := os.MkdirAll("storage/unsorted", 0755)
-		path := fmt.Sprintf("storage/unsorted/%s.md", &fileUUID)
+		err := os.MkdirAll("../storage/unsorted", 0755)
+		path := fmt.Sprintf("../storage/unsorted/%s.md", &fileUUID)
 		file, err := os.Create(path)
 		if err != nil {
 			fmt.Println("unable to create file", err)
@@ -73,3 +73,5 @@ func handler(ctx context.Context, b *bot.Bot, update *models.Update) {
 		fmt.Println("writen")
 	}
 }
+
+// git submodule add <url-repo-b> storage/unsorted
