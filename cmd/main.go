@@ -73,8 +73,10 @@ func handler(ctx context.Context, b *bot.Bot, update *models.Update) {
 		file.WriteString(text)
 		fmt.Println("writen")
 
-		cmd := exec.Command("bash", "-lc", `cd ../unsorted && git add . && git commit -m "feat: add note" && git push`)
-		cmd.Run()
+		cmdPull := exec.Command("bash", "-lc", `cd ../unsorted && git pull`)
+		cmdPull.Run()
+		cmdPush := exec.Command("bash", "-lc", `cd ../unsorted && git add . && git commit -m "feat: add note" && git push`)
+		cmdPush.Run()
 	}
 }
 
