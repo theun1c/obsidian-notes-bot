@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -23,7 +24,13 @@ func main() {
 		bot.WithDefaultHandler(handler),
 	}
 
-	b, err := bot.New(os.Getenv("TOKEN"), opts...)
+	token := os.Getenv("TOKEN")
+	
+	if token == "" {
+		fmt.Println("cannot load token")
+	}
+
+	b, err := bot.New(token, opts...)
 	if err != nil {
 		panic(err)
 	}
