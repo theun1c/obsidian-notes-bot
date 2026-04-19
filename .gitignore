@@ -1,0 +1,4 @@
+# some envs 
+.env
+.env.prod
+.env.develop
